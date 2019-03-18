@@ -3,7 +3,7 @@
 # * Author        : LEI Sen
 # * Email         : sen.lei@outlook.com
 # * Create time   : 2019-03-14 16:17
-# * Last modified : 2019-03-14 16:17
+# * Last modified : 2019-03-18 17:15
 # * Filename      : hadoop.init.sh
 # * Description   : 
 # *********************************************************
@@ -13,7 +13,7 @@ wd=$(cd `dirname $0`; pwd)
 jar_package=$wd/target/***.jar
 jar_class=com.algo.datong.ConstantId
 read_folder=/DMP/share/data-src/admonitor/etl-mzseq/tonglog/dmlog
-output_folder=/algo/algo/leisen/output_48
+output_folder=/algo/algo/leisen/output_1
 start_time=20190111
 end_time=20190112
 
@@ -67,7 +67,11 @@ exit
 hadoop jar $jar_package \
     $jar_class \
     -Dmapreduce.job.queuename=xplan.algo \
+    -Dmapreduce.map.memory.mb=16384 \
     -Dmapreduce.reduce.memory.mb=16384 \
+    -Dmapreduce.job.reduces=10 \
+    -Dmapreduce.map.cpu.vcores=12 \
+    -Dmapreduce.reduce.cpu.vcores=12 \
     $start_time \
     $end_time \
     $output_folder \
